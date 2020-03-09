@@ -34,7 +34,7 @@ class _MovieListState extends State<MovieList> {
           }
           return Center(child: CircularProgressIndicator());
         }
-        )
+        ),
     );
   }
 }
@@ -44,12 +44,20 @@ Widget buildList(AsyncSnapshot<ItemModel> snapshot){
     itemCount: snapshot.data.results.length,
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
     itemBuilder: (BuildContext context, int index) {
-      return GridTile(child: InkResponse(
-        enableFeedback: true,
-        child: Image.network('https://image.tmdb.org/t/p/w185${snapshot.data
-                    .results[index].poster_path}',
-                    fit: BoxFit.cover,),
-      )
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridTile(child: InkResponse(
+          enableFeedback: true,
+          child: Image.network('https://image.tmdb.org/t/p/w185${snapshot.data
+                      .results[index].poster_path}',
+                      fit: BoxFit.cover,),
+          onTap: () {
+            final snackBar = SnackBar(content: Text('Not yet'));
+            return Scaffold.of(context).showSnackBar(snackBar);
+          }      
+        ),
+        
+        ),
       );
     }
     );
