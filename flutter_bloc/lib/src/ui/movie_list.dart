@@ -38,3 +38,19 @@ class _MovieListState extends State<MovieList> {
     );
   }
 }
+
+Widget buildList(AsyncSnapshot<ItemModel> snapshot){
+  return GridView.builder(
+    itemCount: snapshot.data.results.length,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), 
+    itemBuilder: (BuildContext context, int index) {
+      return GridTile(child: InkResponse(
+        enableFeedback: true,
+        child: Image.network('https://image.tmdb.org/t/p/w185${snapshot.data
+                    .results[index].poster_path}',
+                    fit: BoxFit.cover,),
+      )
+      );
+    }
+    );
+}
