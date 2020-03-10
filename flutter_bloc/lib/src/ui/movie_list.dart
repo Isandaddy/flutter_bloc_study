@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/src/blocs/movies_bloc.dart';
 import 'package:flutter_bloc/src/models/item_model.dart';
+import 'package:flutter_bloc/src/ui/movie_detail.dart';
 
 class MovieList extends StatefulWidget {
   @override
@@ -52,8 +53,9 @@ Widget buildList(AsyncSnapshot<ItemModel> snapshot){
                       .results[index].poster_path}',
                       fit: BoxFit.cover,),
           onTap: () {
-            final snackBar = SnackBar(content: Text('Not yet'));
-            return Scaffold.of(context).showSnackBar(snackBar);
+            // final snackBar = SnackBar(content: Text('Not yet'));
+            // return Scaffold.of(context).showSnackBar(snackBar);
+            return openDetailPage(snapshot.data, index, context);
           }      
         ),
         
@@ -61,4 +63,14 @@ Widget buildList(AsyncSnapshot<ItemModel> snapshot){
       );
     }
     );
+    
 }
+
+openDetailPage(ItemModel data, int index, BuildContext context){
+  final page = MovieDetail();
+  Navigator.push(
+     context, 
+    MaterialPageRoute(builder: (context) => page)
+    );
+}
+
